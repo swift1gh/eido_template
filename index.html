@@ -38,1387 +38,237 @@
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet" />
 
-    <!-- =======================================================
-  * Template Name: Dewi
-  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <!-- Component Styles -->
+    <link href="src/styles/components.css" rel="stylesheet" />
+
+    <!-- Custom Toast Styles -->
+    <style>
+      /* Toast Container */
+      .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        max-width: 350px;
+      }
+
+      /* Toast Styles */
+      .toast {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        margin-bottom: 15px;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 4px solid #28a745;
+        overflow: hidden;
+        min-width: 300px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .toast.success {
+        border-left-color: #28a745;
+      }
+
+      .toast.error {
+        border-left-color: #dc3545;
+      }
+
+      .toast.warning {
+        border-left-color: #ffc107;
+      }
+
+      .toast.info {
+        border-left-color: #007bff;
+      }
+
+      .toast-content {
+        display: flex;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 12px;
+      }
+
+      .toast-icon {
+        font-size: 20px;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .toast.success .toast-icon {
+        color: #28a745;
+      }
+
+      .toast.error .toast-icon {
+        color: #dc3545;
+      }
+
+      .toast.warning .toast-icon {
+        color: #ffc107;
+      }
+
+      .toast.info .toast-icon {
+        color: #007bff;
+      }
+
+      .toast-message {
+        flex: 1;
+        font-weight: 500;
+        color: #333;
+        line-height: 1.5;
+        font-size: 14px;
+        margin-top: 2px;
+      }
+
+      .toast-close {
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        margin-left: 12px;
+      }
+
+      .toast-close:hover {
+        color: #666;
+      }
+
+      .toast-progress {
+        height: 3px;
+        background: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .toast-progress-bar {
+        height: 100%;
+        background: currentColor;
+        width: 100%;
+        transform: translateX(-100%);
+        transition: transform linear;
+      }
+
+      .toast.success .toast-progress-bar {
+        background: #28a745;
+      }
+
+      .toast.error .toast-progress-bar {
+        background: #dc3545;
+      }
+
+      .toast.warning .toast-progress-bar {
+        background: #ffc107;
+      }
+
+      .toast.info .toast-progress-bar {
+        background: #007bff;
+      }
+
+      /* Portfolio Show More Functionality */
+      .portfolio-item-hidden {
+        display: none !important;
+      }
+
+      .portfolio-item-hidden.show {
+        display: block !important;
+      }
+
+      /* Smooth transitions for portfolio items */
+      .portfolio-item {
+        transition: all 0.3s ease;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #portfolio-show-more {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      #portfolio-show-more:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+
+      #portfolio-show-more:active {
+        transform: translateY(0);
+      }
+
+      #portfolio-show-more.loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      #portfolio-show-more.hidden {
+        display: none !important;
+      }
+    </style>
   </head>
 
   <body class="index-page">
-    <header id="header" class="header d-flex align-items-center fixed-top">
-      <div
-        class="container-fluid container-xl position-relative d-flex align-items-center">
-        <a href="index.html" class="logo d-flex align-items-center me-auto">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-
-          <h1 class="sitename">
-            <img src="assets/img/EidoLogoNoBg.png" alt="Eido Logo" />
-          </h1>
-        </a>
-
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="#hero" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Our Work</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-
-        <a class="cta-btn" href="index.html#contact">Start Your Project</a>
-      </div>
-    </header>
+    <!-- Header Container -->
+    <div id="header-container"></div>
 
     <main class="main">
-      <!-- Hero Section -->
-      <section id="hero" class="hero section dark-background">
-        <img
-          src="assets/img/hero-bg.jpg"
-          alt="Digital Marketing Background"
-          data-aos="fade-in" />
+      <!-- Hero Section Container -->
+      <div id="hero-container"></div>
 
-        <div class="container d-flex flex-column align-items-center">
-          <h2 data-aos="fade-up" data-aos-delay="100">
-            TRANSFORM YOUR DIGITAL PRESENCE
-          </h2>
-          <p data-aos="fade-up" data-aos-delay="200" class="hero-p">
-            We help businesses grow and thrive in the digital world through
-            innovative web design, development, and marketing solutions
-          </p>
-          <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
-            <a href="#contact" class="btn-get-started">Get Started</a>
-            <a
-              href="#portfolio"
-              class="btn-watch-video d-flex align-items-center"
-              ><i class="bi bi-grid"></i><span>View Our Work</span></a
-            >
-          </div>
-        </div>
-      </section>
-      <!-- /Hero Section -->
+      <!-- About Section Container -->
+      <div id="about-container"></div>
 
-      <!-- About Section -->
-      <section id="about" class="about section">
-        <div class="container">
-          <div class="row gy-4">
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
-              <div class="content ps-0 ps-lg-5">
-                <h2>About Eido</h2>
-                <p>
-                  At Eido, we believe in the power of digital transformation.
-                  Our journey began with a simple mission: to help businesses
-                  thrive in the digital age. Today, we're proud to be a leading
-                  digital marketing agency that combines creativity with
-                  technical expertise to deliver exceptional results.
-                </p>
+      <!-- Stats Section Container -->
+      <div id="stats-container"></div>
 
-                <div class="position-relative mt-4">
-                  <img
-                    src="assets/img/about-2.jpg"
-                    class="img-fluid rounded-4"
-                    alt="Eido Team" />
-                </div>
-              </div>
-            </div>
+      <!-- Services Section Container -->
+      <div id="services-container"></div>
 
-            <div
-              class="col-lg-6 position-relative"
-              data-aos="fade-up"
-              data-aos-delay="200">
-              <div class="about-img">
-                <img
-                  src="assets/img/about.jpg"
-                  class="img-fluid rounded-4 shadow-lg"
-                  alt="Eido Office" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- /About Section -->
+      <!-- Clients Section Container -->
+      <div id="clients-container"></div>
 
-      <!-- Stats Section -->
-      <section id="stats" class="stats section">
-        <div class="container">
-          <div class="row gy-4">
-            <div
-              class="col-xl-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="200">
-              <div class="stats-item text-center">
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="500"
-                  data-purecounter-duration="1"
-                  class="purecounter"></span>
-                <p>Projects Completed</p>
-              </div>
-            </div>
+      <!-- Features Section Container -->
+      <div id="features-container"></div>
 
-            <div
-              class="col-xl-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="400">
-              <div class="stats-item text-center">
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="200"
-                  data-purecounter-duration="1"
-                  class="purecounter"></span>
-                <p>Happy Clients</p>
-              </div>
-            </div>
+      <!-- Testimonials Section Container -->
+      <div id="testimonials-container"></div>
 
-            <div
-              class="col-xl-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="600">
-              <div class="stats-item text-center">
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="50"
-                  data-purecounter-duration="1"
-                  class="purecounter"></span>
-                <p>Team Members</p>
-              </div>
-            </div>
+      <!-- Portfolio Section Container -->
+      <div id="portfolio-container"></div>
 
-            <div
-              class="col-xl-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="800">
-              <div class="stats-item text-center">
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="10"
-                  data-purecounter-duration="1"
-                  class="purecounter"></span>
-                <p>Years Experience</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- /Stats Section -->
+      <!-- Team Section Container -->
+      <div id="team-container"></div>
 
-      <!-- Services Section -->
-      <section id="services" class="services section light-background py-5">
-        <div class="container" data-aos="fade-up">
-          <div class="section-header">
-            <h2>Our Services</h2>
-            <p>Comprehensive Digital Solutions for Your Business Growth</p>
-          </div>
-
-          <div class="row g-4">
-            <div
-              class="col-lg-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="400">
-              <div class="service-item h-100">
-                <div class="img">
-                  <img
-                    src="https://images.unsplash.com/photo-1611926653458-09294b3142bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    class="img-fluid"
-                    alt="Social Media Management" />
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-share"></i>
-                  </div>
-                  <a href="service-details.html" class="stretched-link">
-                    <h3>Social Media Management</h3>
-                  </a>
-                  <p>
-                    Strategic social media management that builds your brand
-                    presence and engages your target audience across all
-                    platforms.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <!-- End Service Item -->
-
-            <div
-              class="col-lg-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="100">
-              <div class="service-item h-100">
-                <div class="img">
-                  <img
-                    src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    class="img-fluid"
-                    alt="Web Design and Development" />
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-code-square"></i>
-                  </div>
-                  <a href="service-details.html" class="stretched-link">
-                    <h3>Web Design & Development</h3>
-                  </a>
-                  <p>
-                    Custom websites that combine stunning design with powerful
-                    functionality to create memorable online experiences.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <!-- End Service Item -->
-
-            <div
-              class="col-lg-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="200">
-              <div class="service-item h-100">
-                <div class="img">
-                  <img
-                    src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    class="img-fluid"
-                    alt="Graphic Design" />
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-palette"></i>
-                  </div>
-                  <a href="service-details.html" class="stretched-link">
-                    <h3>Graphic Design</h3>
-                  </a>
-                  <p>
-                    Creative visual solutions including logos, brand identity,
-                    marketing materials, and digital assets that make your brand
-                    stand out.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <!-- End Service Item -->
-
-            <div
-              class="col-lg-3 col-md-6"
-              data-aos="zoom-in"
-              data-aos-delay="300">
-              <div class="service-item h-100">
-                <div class="img">
-                  <img
-                    src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    class="img-fluid"
-                    alt="Animation" />
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-film"></i>
-                  </div>
-                  <a href="service-details.html" class="stretched-link">
-                    <h3>Animation</h3>
-                  </a>
-                  <p>
-                    Engaging motion graphics and animations that bring your
-                    brand to life and captivate your audience.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <!-- End Service Item -->
-          </div>
-        </div>
-      </section>
-      <!-- /Services Section -->
-
-      <!-- Clients Section -->
-      <section id="clients" class="clients section light-background">
-        <div class="container" data-aos="fade-up">
-          <div class="row gy-4">
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img
-                src="assets/img/clients/client-1.png"
-                class="img-fluid"
-                alt="" />
-            </div>
-            <!-- End Client Item -->
-
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img
-                src="assets/img/clients/client-2.png"
-                class="img-fluid"
-                alt="" />
-            </div>
-            <!-- End Client Item -->
-
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img
-                src="assets/img/clients/client-3.png"
-                class="img-fluid"
-                alt="" />
-            </div>
-            <!-- End Client Item -->
-
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img
-                src="assets/img/clients/client-4.png"
-                class="img-fluid"
-                alt="" />
-            </div>
-            <!-- End Client Item -->
-
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img
-                src="assets/img/clients/client-5.png"
-                class="img-fluid"
-                alt="" />
-            </div>
-            <!-- End Client Item -->
-
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img
-                src="assets/img/clients/client-6.png"
-                class="img-fluid"
-                alt="" />
-            </div>
-            <!-- End Client Item -->
-          </div>
-        </div>
-      </section>
-      <!-- /Clients Section -->
-
-      <!-- Features Section -->
-      <section id="features" class="features section">
-        <div class="container">
-          <ul
-            class="nav nav-tabs row d-flex"
-            data-aos="fade-up"
-            data-aos-delay="100">
-            <li class="nav-item col-3">
-              <a
-                class="nav-link active show"
-                data-bs-toggle="tab"
-                data-bs-target="#features-tab-1">
-                <i class="bi bi-lightbulb"></i>
-                <h4 class="d-none d-lg-block">Innovative Solutions</h4>
-              </a>
-            </li>
-            <li class="nav-item col-3">
-              <a
-                class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#features-tab-2">
-                <i class="bi bi-graph-up"></i>
-                <h4 class="d-none d-lg-block">Results-Driven</h4>
-              </a>
-            </li>
-            <li class="nav-item col-3">
-              <a
-                class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#features-tab-3">
-                <i class="bi bi-people"></i>
-                <h4 class="d-none d-lg-block">Expert Team</h4>
-              </a>
-            </li>
-            <li class="nav-item col-3">
-              <a
-                class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#features-tab-4">
-                <i class="bi bi-clock"></i>
-                <h4 class="d-none d-lg-block">24/7 Support</h4>
-              </a>
-            </li>
-          </ul>
-
-          <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-            <div class="tab-pane active show" id="features-tab-1">
-              <div class="row">
-                <div class="col-lg-8 order-2 order-lg-1">
-                  <h3>Innovative Digital Solutions</h3>
-                  <p class="fst-italic">
-                    We stay ahead of digital trends to deliver cutting-edge
-                    solutions that set your business apart.
-                  </p>
-                  <ul>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Latest web
-                      technologies and frameworks
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Creative and
-                      unique design approaches
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Mobile-first
-                      responsive solutions
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> SEO-optimized
-                      content and structure
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="col-lg-4 order-1 order-lg-2 text-center">
-                  <img
-                    src="assets/img/features-1.jpg"
-                    alt="Innovative Solutions"
-                    class="img-fluid" />
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="features-tab-2">
-              <div class="row">
-                <div class="col-lg-8 order-2 order-lg-1">
-                  <h3>Results-Driven Approach</h3>
-                  <p class="fst-italic">
-                    Our strategies are designed to deliver measurable results
-                    and drive business growth.
-                  </p>
-                  <ul>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Data-driven
-                      decision making
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Regular
-                      performance tracking
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> ROI-focused
-                      campaigns
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Continuous
-                      optimization
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="col-lg-4 order-1 order-lg-2 text-center">
-                  <img
-                    src="assets/img/features-2.jpg"
-                    alt="Results-Driven Approach"
-                    class="img-fluid" />
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="features-tab-3">
-              <div class="row">
-                <div class="col-lg-8 order-2 order-lg-1">
-                  <h3>Expert Team</h3>
-                  <p class="fst-italic">
-                    Our team of professionals brings years of experience and
-                    expertise to every project.
-                  </p>
-                  <ul>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Certified
-                      professionals
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Industry experts
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Creative problem
-                      solvers
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Dedicated project
-                      managers
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="col-lg-4 order-1 order-lg-2 text-center">
-                  <img
-                    src="assets/img/features-3.jpg"
-                    alt="Expert Team"
-                    class="img-fluid" />
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="features-tab-4">
-              <div class="row">
-                <div class="col-lg-8 order-2 order-lg-1">
-                  <h3>24/7 Support</h3>
-                  <p class="fst-italic">
-                    We provide round-the-clock support to ensure your digital
-                    presence runs smoothly.
-                  </p>
-                  <ul>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Technical support
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Emergency
-                      assistance
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Regular
-                      maintenance
-                    </li>
-                    <li>
-                      <i class="bi bi-check-circle-fill"></i> Quick response
-                      times
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="col-lg-4 order-1 order-lg-2 text-center">
-                  <img
-                    src="assets/img/features-4.jpg"
-                    alt="24/7 Support"
-                    class="img-fluid" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- /Features Section -->
-
-      <!-- Testimonials Section -->
-      <section id="testimonials" class="testimonials section dark-background">
-        <img
-          src="assets/img/testimonials-bg.jpg"
-          class="testimonials-bg"
-          alt="" />
-
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper init-swiper">
-            <script type="application/json" class="swiper-config">
-              {
-                "loop": true,
-                "speed": 600,
-                "autoplay": {
-                  "delay": 5000
-                },
-                "slidesPerView": "auto",
-                "pagination": {
-                  "el": ".swiper-pagination",
-                  "type": "bullets",
-                  "clickable": true
-                }
-              }
-            </script>
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="testimonial-item">
-                  <img
-                    src="assets/img/testimonials/testimonials-1.jpg"
-                    class="testimonial-img"
-                    alt="" />
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i>
-                  </div>
-                  <p>
-                    <i class="bi bi-quote quote-icon-left"></i>
-                    <span
-                      >Proin iaculis purus consequat sem cure digni ssim donec
-                      porttitora entum suscipit rhoncus. Accusantium quam,
-                      ultricies eget id, aliquam eget nibh et. Maecen aliquam,
-                      risus at semper.</span
-                    >
-                    <i class="bi bi-quote quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-              <!-- End testimonial item -->
-
-              <div class="swiper-slide">
-                <div class="testimonial-item">
-                  <img
-                    src="assets/img/testimonials/testimonials-2.jpg"
-                    class="testimonial-img"
-                    alt="" />
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i>
-                  </div>
-                  <p>
-                    <i class="bi bi-quote quote-icon-left"></i>
-                    <span
-                      >Export tempor illum tamen malis malis eram quae irure
-                      esse labore quem cillum quid cillum eram malis quorum
-                      velit fore eram velit sunt aliqua noster fugiat irure amet
-                      legam anim culpa.</span
-                    >
-                    <i class="bi bi-quote quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-              <!-- End testimonial item -->
-
-              <div class="swiper-slide">
-                <div class="testimonial-item">
-                  <img
-                    src="assets/img/testimonials/testimonials-3.jpg"
-                    class="testimonial-img"
-                    alt="" />
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i>
-                  </div>
-                  <p>
-                    <i class="bi bi-quote quote-icon-left"></i>
-                    <span
-                      >Enim nisi quem export duis labore cillum quae magna enim
-                      sint quorum nulla quem veniam duis minim tempor labore
-                      quem eram duis noster aute amet eram fore quis sint
-                      minim.</span
-                    >
-                    <i class="bi bi-quote quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-              <!-- End testimonial item -->
-
-              <div class="swiper-slide">
-                <div class="testimonial-item">
-                  <img
-                    src="assets/img/testimonials/testimonials-4.jpg"
-                    class="testimonial-img"
-                    alt="" />
-                  <h3>Matt Brandon</h3>
-                  <h4>Freelancer</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i>
-                  </div>
-                  <p>
-                    <i class="bi bi-quote quote-icon-left"></i>
-                    <span
-                      >Fugiat enim eram quae cillum dolore dolor amet nulla
-                      culpa multos export minim fugiat minim velit minim dolor
-                      enim duis veniam ipsum anim magna sunt elit fore quem
-                      dolore labore illum veniam.</span
-                    >
-                    <i class="bi bi-quote quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-              <!-- End testimonial item -->
-
-              <div class="swiper-slide">
-                <div class="testimonial-item">
-                  <img
-                    src="assets/img/testimonials/testimonials-5.jpg"
-                    class="testimonial-img"
-                    alt="" />
-                  <h3>John Larson</h3>
-                  <h4>Entrepreneur</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i
-                    ><i class="bi bi-star-fill"></i>
-                  </div>
-                  <p>
-                    <i class="bi bi-quote quote-icon-left"></i>
-                    <span
-                      >Quis quorum aliqua sint quem legam fore sunt eram irure
-                      aliqua veniam tempor noster veniam enim culpa labore duis
-                      sunt culpa nulla illum cillum fugiat legam esse veniam
-                      culpa fore nisi cillum quid.</span
-                    >
-                    <i class="bi bi-quote quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-              <!-- End testimonial item -->
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-      </section>
-      <!-- /Testimonials Section -->
-
-      <!-- Portfolio Section -->
-      <section id="portfolio" class="portfolio section">
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-          <h2>Portfolio</h2>
-          <p>CHECK OUR PORTFOLIO</p>
-        </div>
-        <!-- End Section Title -->
-
-        <div class="container">
-          <div
-            class="isotope-layout"
-            data-default-filter="*"
-            data-layout="masonry"
-            data-sort="original-order">
-            <ul
-              class="portfolio-filters isotope-filters"
-              data-aos="fade-up"
-              data-aos-delay="100">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-product">Product</li>
-              <li data-filter=".filter-branding">Branding</li>
-              <li data-filter=".filter-books">Books</li>
-            </ul>
-            <!-- End Portfolio Filters -->
-
-            <div
-              class="row gy-4 isotope-container"
-              data-aos="fade-up"
-              data-aos-delay="200">
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/app-1.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>App 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/app-1.jpg"
-                      title="App 1"
-                      data-gallery="portfolio-gallery-app"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/product-1.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Product 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/product-1.jpg"
-                      title="Product 1"
-                      data-gallery="portfolio-gallery-product"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/branding-1.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Branding 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/branding-1.jpg"
-                      title="Branding 1"
-                      data-gallery="portfolio-gallery-branding"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/books-1.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Books 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/books-1.jpg"
-                      title="Branding 1"
-                      data-gallery="portfolio-gallery-book"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/app-2.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>App 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/app-2.jpg"
-                      title="App 2"
-                      data-gallery="portfolio-gallery-app"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/product-2.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Product 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/product-2.jpg"
-                      title="Product 2"
-                      data-gallery="portfolio-gallery-product"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/branding-2.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Branding 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/branding-2.jpg"
-                      title="Branding 2"
-                      data-gallery="portfolio-gallery-branding"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/books-2.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Books 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/books-2.jpg"
-                      title="Branding 2"
-                      data-gallery="portfolio-gallery-book"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/app-3.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>App 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/app-3.jpg"
-                      title="App 3"
-                      data-gallery="portfolio-gallery-app"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/product-3.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Product 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/product-3.jpg"
-                      title="Product 3"
-                      data-gallery="portfolio-gallery-product"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/branding-3.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Branding 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/branding-3.jpg"
-                      title="Branding 2"
-                      data-gallery="portfolio-gallery-branding"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-
-              <div
-                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-                <div class="portfolio-content h-100">
-                  <img
-                    src="assets/img/portfolio/books-3.jpg"
-                    class="img-fluid"
-                    alt="" />
-                  <div class="portfolio-info">
-                    <h4>Books 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a
-                      href="assets/img/portfolio/books-3.jpg"
-                      title="Branding 3"
-                      data-gallery="portfolio-gallery-book"
-                      class="glightbox preview-link"
-                      ><i class="bi bi-zoom-in"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      title="More Details"
-                      class="details-link"
-                      ><i class="bi bi-link-45deg"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Portfolio Item -->
-            </div>
-            <!-- End Portfolio Container -->
-          </div>
-        </div>
-      </section>
-      <!-- /Portfolio Section -->
-
-      <!-- Team Section -->
-      <section id="team" class="team section light-background">
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-          <h2>Team</h2>
-          <p>CHECK OUR TEAM</p>
-        </div>
-        <!-- End Section Title -->
-
-        <div class="container">
-          <div class="row gy-5">
-            <div
-              class="col-lg-4 col-md-6"
-              data-aos="fade-up"
-              data-aos-delay="100">
-              <div class="member">
-                <div class="pic">
-                  <img
-                    src="assets/img/team/team-1.jpg"
-                    class="img-fluid"
-                    alt="" />
-                </div>
-                <div class="member-info">
-                  <h4>Walter White</h4>
-                  <span>Chief Executive Officer</span>
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team Member -->
-
-            <div
-              class="col-lg-4 col-md-6"
-              data-aos="fade-up"
-              data-aos-delay="200">
-              <div class="member">
-                <div class="pic">
-                  <img
-                    src="assets/img/team/team-2.jpg"
-                    class="img-fluid"
-                    alt="" />
-                </div>
-                <div class="member-info">
-                  <h4>Sarah Jhonson</h4>
-                  <span>Product Manager</span>
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team Member -->
-
-            <div
-              class="col-lg-4 col-md-6"
-              data-aos="fade-up"
-              data-aos-delay="300">
-              <div class="member">
-                <div class="pic">
-                  <img
-                    src="assets/img/team/team-3.jpg"
-                    class="img-fluid"
-                    alt="" />
-                </div>
-                <div class="member-info">
-                  <h4>William Anderson</h4>
-                  <span>CTO</span>
-                  <div class="social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team Member -->
-          </div>
-        </div>
-      </section>
-      <!-- /Team Section -->
-
-      <!-- Contact Section -->
-      <section id="contact" class="contact section">
-        <div class="container">
-          <div class="row gy-4">
-            <div class="col-lg-4">
-              <div
-                class="info-item d-flex"
-                data-aos="fade-up"
-                data-aos-delay="100">
-                <i class="bi bi-geo-alt flex-shrink-0 icon"></i>
-                <div>
-                  <h3>Our Location</h3>
-                  <p>123 Digital Avenue<br />Tech City, TC 12345</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4">
-              <div
-                class="info-item d-flex"
-                data-aos="fade-up"
-                data-aos-delay="200">
-                <i class="bi bi-telephone flex-shrink-0 icon"></i>
-                <div>
-                  <h3>Call Us</h3>
-                  <p>+1 (555) 123-4567<br />+1 (555) 987-6543</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4">
-              <div
-                class="info-item d-flex"
-                data-aos="fade-up"
-                data-aos-delay="300">
-                <i class="bi bi-envelope flex-shrink-0 icon"></i>
-                <div>
-                  <h3>Email Us</h3>
-                  <p>hello@eido.com<br />support@eido.com</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row gy-4 mt-1">
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="php-email-form">
-                <h4>Start Your Digital Journey</h4>
-                <p>
-                  Ready to transform your digital presence? Fill out the form
-                  below and we'll get back to you within 24 hours.
-                </p>
-                <form action="forms/contact.php" method="post">
-                  <div class="row gy-4">
-                    <div class="col-md-6">
-                      <input
-                        type="text"
-                        name="name"
-                        class="form-control"
-                        placeholder="Your Name"
-                        required />
-                    </div>
-                    <div class="col-md-6">
-                      <input
-                        type="email"
-                        class="form-control"
-                        name="email"
-                        placeholder="Your Email"
-                        required />
-                    </div>
-                    <div class="col-md-12">
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="subject"
-                        placeholder="Company Name"
-                        required />
-                    </div>
-                    <div class="col-md-12">
-                      <select class="form-select" name="service" required>
-                        <option value="">Select Service</option>
-                        <option value="web-design">
-                          Web Design & Development
-                        </option>
-                        <option value="graphic-design">Graphic Design</option>
-                        <option value="animation">Animation</option>
-                        <option value="social-media">
-                          Social Media Management
-                        </option>
-                      </select>
-                    </div>
-                    <div class="col-md-12">
-                      <textarea
-                        class="form-control"
-                        name="message"
-                        rows="6"
-                        placeholder="Tell us about your project"
-                        required></textarea>
-                    </div>
-                  </div>
-
-                  <div class="my-3">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">
-                      Your message has been sent. Thank you!
-                    </div>
-                  </div>
-
-                  <div class="text-center">
-                    <button type="submit">Send Message</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="contact-map">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30591910525!2d-74.25986532942815!3d40.69714941978975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1648123456789!5m2!1sen!2s"
-                  width="100%"
-                  height="450"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- /Contact Section -->
+      <!-- Contact Section Container -->
+      <div id="contact-container"></div>
     </main>
 
-    <!-- Footer -->
-    <footer id="footer" class="footer">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-4 col-md-6 footer-about">
-            <a href="index.html" class="logo d-flex align-items-center">
-              <span class="sitename">Eido</span>
-            </a>
-            <div class="footer-contact pt-3">
-              <p>123 Digital Avenue</p>
-              <p>Tech City, TC 12345</p>
-              <p class="mt-3">
-                <strong>Phone:</strong> <span>+1 (555) 123-4567</span>
-              </p>
-              <p><strong>Email:</strong> <span>hello@eido.com</span></p>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="#hero">Home</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#portfolio">Our Work</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><a href="#services">Web Design & Development</a></li>
-              <li><a href="#services">Graphic Design</a></li>
-              <li><a href="#services">Animation</a></li>
-              <li><a href="#services">Social Media Management</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>
-              Subscribe to our newsletter for the latest digital marketing
-              insights and updates.
-            </p>
-            <form action="forms/subscribe.php" method="post">
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email" /><input
-                type="submit"
-                value="Subscribe" />
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="container copyright text-center mt-4">
-        <p>
-          © <span>Copyright</span> <strong class="px-1 sitename">Eido</strong>
-          <span>All Rights Reserved</span>
-        </p>
-      </div>
-    </footer>
-    <!-- /Footer -->
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
 
     <!-- Scroll Top -->
     <a
@@ -1431,6 +281,9 @@
     <!-- Preloader -->
     <div id="preloader"></div>
 
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -1441,7 +294,13 @@
     <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-    <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <!-- Component System Scripts -->
+    <script src="src/scripts/components/component-loader.js"></script>
+    <script src="src/scripts/components/navigation.js"></script>
+    <script src="src/scripts/components/portfolio.js"></script>
+    <script src="src/scripts/components/toast.js"></script>
+    <script src="src/scripts/components/contact-form.js"></script>
+    <script src="src/scripts/portfolio-show-more.js"></script>
+    <script src="src/scripts/main.js"></script>
   </body>
 </html>
