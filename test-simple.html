@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Component Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .test-container {
+        border: 2px solid #ccc;
+        padding: 20px;
+        margin: 10px 0;
+      }
+      .loading {
+        background: #f0f0f0;
+        padding: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Simple Component Loading Test</h1>
+
+    <div class="test-container">
+      <h3>Header Component Test:</h3>
+      <div id="header-container" class="loading">Loading header...</div>
+    </div>
+
+    <div class="test-container">
+      <h3>Console Output:</h3>
+      <div id="console-output"></div>
+    </div>
+
+    <script>
+      // Simple console logger for debugging
+      const originalLog = console.log;
+      const originalError = console.error;
+      const consoleOutput = document.getElementById("console-output");
+
+      function addToConsole(message, type = "log") {
+        const div = document.createElement("div");
+        div.style.margin = "5px 0";
+        div.style.padding = "5px";
+        div.style.background = type === "error" ? "#ffebee" : "#f3f3f3";
+        div.style.color = type === "error" ? "red" : "black";
+        div.textContent = new Date().toLocaleTimeString() + ": " + message;
+        consoleOutput.appendChild(div);
+      }
+
+      console.log = function (...args) {
+        originalLog.apply(console, args);
+        addToConsole(args.join(" "), "log");
+      };
+
+      console.error = function (...args) {
+        originalError.apply(console, args);
+        addToConsole(args.join(" "), "error");
+      };
+    </script>
+
+    <script src="src/scripts/components/component-loader.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        console.log("DOM loaded, starting test...");
+
+        const loader = new ComponentLoader();
+        console.log("ComponentLoader created");
+
+        try {
+          await loader.loadComponent("header", "header-container");
+          console.log("Header component loading completed");
+        } catch (error) {
+          console.error("Error loading header:", error);
+        }
+      });
+    </script>
+  </body>
+</html>

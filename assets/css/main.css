@@ -1678,40 +1678,103 @@ section,
 --------------------------------------------------------------*/
 .portfolio .portfolio-filters {
   padding: 0;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 30px auto;
   list-style: none;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
 
 .portfolio .portfolio-filters li {
   cursor: pointer;
-  display: inline-block;
-  padding: 0;
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0 10px;
-  line-height: 1;
-  margin-bottom: 5px;
-  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
+  background: rgba(52, 58, 64, 0.8);
+  border: 2px solid rgba(108, 117, 125, 0.6);
+  border-radius: 50px;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.portfolio .portfolio-filters li:hover,
+.portfolio .portfolio-filters li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.portfolio .portfolio-filters li:hover::before {
+  left: 100%;
+}
+
+.portfolio .portfolio-filters li:hover {
+  color: #ffffff;
+  background: rgba(102, 126, 234, 0.9);
+  border-color: rgba(102, 126, 234, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
 .portfolio .portfolio-filters li.filter-active {
-  color: var(--accent-color);
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.portfolio .portfolio-filters li:first-child {
-  margin-left: 0;
+.portfolio .portfolio-filters li.filter-active:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
 }
 
-.portfolio .portfolio-filters li:last-child {
-  margin-right: 0;
+@media (max-width: 768px) {
+  .portfolio .portfolio-filters {
+    gap: 8px;
+    margin-bottom: 25px;
+  }
+
+  .portfolio .portfolio-filters li {
+    font-size: 12px;
+    padding: 10px 18px;
+    letter-spacing: 0.3px;
+  }
 }
 
 @media (max-width: 575px) {
+  .portfolio .portfolio-filters {
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
   .portfolio .portfolio-filters li {
-    font-size: 14px;
-    margin: 0 5px;
+    font-size: 11px;
+    padding: 8px 14px;
+    letter-spacing: 0.2px;
   }
 }
 

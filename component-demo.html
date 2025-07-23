@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component System Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .demo-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .component-demo {
+        margin: 20px 0;
+        border: 2px dashed #ddd;
+        padding: 20px;
+        border-radius: 4px;
+      }
+      .component-demo h3 {
+        margin-top: 0;
+        color: #333;
+      }
+      .load-btn {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .load-btn:hover {
+        background: #0056b3;
+      }
+      .status {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      .status.success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .status.error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-container">
+      <h1>Eido Component System Demo</h1>
+      <p>
+        This demo shows how individual components can be loaded dynamically.
+      </p>
+
+      <div class="component-demo">
+        <h3>Header Component</h3>
+        <button
+          class="load-btn"
+          onclick="loadComponent('header', 'header-demo')">
+          Load Header
+        </button>
+        <div id="header-demo"></div>
+        <div id="header-status"></div>
+      </div>
+
+      <div class="component-demo">
+        <h3>Hero Component</h3>
+        <button class="load-btn" onclick="loadComponent('hero', 'hero-demo')">
+          Load Hero
+        </button>
+        <div id="hero-demo"></div>
+        <div id="hero-status"></div>
+      </div>
+
+      <div class="component-demo">
+        <h3>Services Component</h3>
+        <button
+          class="load-btn"
+          onclick="loadComponent('services', 'services-demo')">
+          Load Services
+        </button>
+        <div id="services-demo"></div>
+        <div id="services-status"></div>
+      </div>
+
+      <div class="component-demo">
+        <h3>Footer Component</h3>
+        <button
+          class="load-btn"
+          onclick="loadComponent('footer', 'footer-demo')">
+          Load Footer
+        </button>
+        <div id="footer-demo"></div>
+        <div id="footer-status"></div>
+      </div>
+
+      <div class="component-demo">
+        <h3>Load All Components</h3>
+        <button class="load-btn" onclick="loadAllComponents()">
+          Load All at Once
+        </button>
+        <div id="all-status"></div>
+      </div>
+    </div>
+
+    <!-- Component System -->
+    <script src="src/scripts/components/component-loader.js"></script>
+
+    <script>
+      const loader = new ComponentLoader();
+
+      async function loadComponent(name, containerId) {
+        const statusElement = document.getElementById(
+          containerId.replace("-demo", "-status")
+        );
+        statusElement.innerHTML = '<div class="status">Loading...</div>';
+
+        try {
+          await loader.loadComponent(name, containerId);
+          statusElement.innerHTML =
+            '<div class="status success">✅ Component loaded successfully!</div>';
+        } catch (error) {
+          statusElement.innerHTML = `<div class="status error">❌ Error loading component: ${error.message}</div>`;
+        }
+      }
+
+      async function loadAllComponents() {
+        const statusElement = document.getElementById("all-status");
+        statusElement.innerHTML =
+          '<div class="status">Loading all components...</div>';
+
+        const components = [
+          { name: "header", containerId: "header-demo" },
+          { name: "hero", containerId: "hero-demo" },
+          { name: "services", containerId: "services-demo" },
+          { name: "footer", containerId: "footer-demo" },
+        ];
+
+        try {
+          await loader.loadComponentsParallel(components);
+          statusElement.innerHTML =
+            '<div class="status success">✅ All components loaded successfully!</div>';
+
+          // Update individual status
+          components.forEach((comp) => {
+            const statusEl = document.getElementById(
+              comp.containerId.replace("-demo", "-status")
+            );
+            statusEl.innerHTML =
+              '<div class="status success">✅ Loaded via batch operation</div>';
+          });
+        } catch (error) {
+          statusElement.innerHTML = `<div class="status error">❌ Error loading components: ${error.message}</div>`;
+        }
+      }
+    </script>
+  </body>
+</html>

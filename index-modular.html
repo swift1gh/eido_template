@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Eido - Digital Marketing Agency</title>
+    <meta
+      name="description"
+      content="Eido helps businesses grow and thrive in the digital world through web design, development, graphic design, animation, and social media management." />
+    <meta
+      name="keywords"
+      content="digital marketing, web design, web development, graphic design, animation, social media management" />
+
+    <!-- Favicons -->
+    <link href="assets/img/EidoLogo.jpg" rel="icon" />
+    <link href="assets/img/EidoLogo.jpg" rel="apple-touch-icon" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet" />
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet" />
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet" />
+
+    <!-- Component Styles -->
+    <link href="src/styles/components.css" rel="stylesheet" />
+
+    <!-- Custom Toast Styles -->
+    <style>
+      /* Toast Container */
+      .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        max-width: 350px;
+      }
+
+      /* Toast Styles */
+      .toast {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        margin-bottom: 15px;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 4px solid #28a745;
+        overflow: hidden;
+        min-width: 300px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .toast.success {
+        border-left-color: #28a745;
+      }
+
+      .toast.error {
+        border-left-color: #dc3545;
+      }
+
+      .toast.warning {
+        border-left-color: #ffc107;
+      }
+
+      .toast.info {
+        border-left-color: #007bff;
+      }
+
+      .toast-content {
+        display: flex;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 12px;
+      }
+
+      .toast-icon {
+        font-size: 20px;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .toast.success .toast-icon {
+        color: #28a745;
+      }
+
+      .toast.error .toast-icon {
+        color: #dc3545;
+      }
+
+      .toast.warning .toast-icon {
+        color: #ffc107;
+      }
+
+      .toast.info .toast-icon {
+        color: #007bff;
+      }
+
+      .toast-message {
+        flex: 1;
+        font-weight: 500;
+        color: #333;
+        line-height: 1.5;
+        font-size: 14px;
+        margin-top: 2px;
+      }
+
+      .toast-close {
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        margin-left: 12px;
+      }
+
+      .toast-close:hover {
+        color: #666;
+      }
+
+      .toast-progress {
+        height: 3px;
+        background: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .toast-progress-bar {
+        height: 100%;
+        background: currentColor;
+        width: 100%;
+        transform: translateX(-100%);
+        transition: transform linear;
+      }
+
+      .toast.success .toast-progress-bar {
+        background: #28a745;
+      }
+
+      .toast.error .toast-progress-bar {
+        background: #dc3545;
+      }
+
+      .toast.warning .toast-progress-bar {
+        background: #ffc107;
+      }
+
+      .toast.info .toast-progress-bar {
+        background: #007bff;
+      }
+
+      /* Portfolio Show More Functionality */
+      .portfolio-item-hidden {
+        display: none !important;
+      }
+
+      .portfolio-item-hidden.show {
+        display: block !important;
+      }
+
+      /* Smooth transitions for portfolio items */
+      .portfolio-item {
+        transition: all 0.3s ease;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #portfolio-show-more {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      #portfolio-show-more:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+
+      #portfolio-show-more:active {
+        transform: translateY(0);
+      }
+
+      #portfolio-show-more.loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      #portfolio-show-more.hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body class="index-page">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+
+    <main class="main">
+      <!-- Hero Section Container -->
+      <div id="hero-container"></div>
+
+      <!-- About Section Container -->
+      <div id="about-container"></div>
+
+      <!-- Stats Section Container -->
+      <div id="stats-container"></div>
+
+      <!-- Services Section Container -->
+      <div id="services-container"></div>
+
+      <!-- Clients Section Container -->
+      <div id="clients-container"></div>
+
+      <!-- Features Section Container -->
+      <div id="features-container"></div>
+
+      <!-- Testimonials Section Container -->
+      <div id="testimonials-container"></div>
+
+      <!-- Portfolio Section Container -->
+      <div id="portfolio-container"></div>
+
+      <!-- Team Section Container -->
+      <div id="team-container"></div>
+
+      <!-- Contact Section Container -->
+      <div id="contact-container"></div>
+    </main>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Scroll Top -->
+    <a
+      href="#"
+      id="scroll-top"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+    <!-- Component System Scripts -->
+    <script src="src/scripts/components/component-loader.js"></script>
+    <script src="src/scripts/components/navigation.js"></script>
+    <script src="src/scripts/components/portfolio.js"></script>
+    <script src="src/scripts/components/toast.js"></script>
+    <script src="src/scripts/components/contact-form.js"></script>
+    <script src="src/scripts/portfolio-show-more.js"></script>
+    <script src="src/scripts/main.js"></script>
+  </body>
+</html>
